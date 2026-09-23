@@ -1,34 +1,28 @@
 name: Lint
-on:
-  push:
-    branches:
-      - main
-      - release-v*
-  pull_request:
-  merge_group:
+on: push
 permissions: {}
 
 jobs:
   mypy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/mypy
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/mypy
 
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/pre-commit
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/pre-commit
 
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.8"
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
 
-      - run: pip install -r requirements/docs.txt
-      - run: pip install -e .
-      - run: sphinx-build doc build
+    - run: pip install -r requirements/docs.txt
+    - run: pip install -e .
+    - run: sphinx-build doc build
